@@ -99,7 +99,6 @@ public class AssignmentTwo {
         Employee operator = new Employee("John Doe", 30, "johndoe@example.com", "12345", "Operations");
         // 创建一个新的Ride对象，这里假设游乐设施名称为"Roller Coaster"，一次循环最多容纳3名游客，初始状态为开放（true）
         Ride<Visitor> rollerCoasterRide = new Ride<Visitor>("Roller Coaster", true, operator, 3) {
-            // 这里如果Ride类有抽象方法需要具体实现，可以在这里添加具体逻辑，当前代码示例中无额外抽象方法需要实现，所以留空
         };
 
         // 创建一些访客对象并添加到队列中
@@ -138,10 +137,9 @@ public class AssignmentTwo {
         Employee operator = new Employee("John Doe", 30, "johndoe@example.com", "12345", "Operations");
         // 创建一个新的Ride对象，这里假设游乐设施名称为"Roller Coaster"，一次循环最多容纳3名游客，初始状态为开放（true）
         Ride<Visitor> rollerCoasterRide = new Ride<Visitor>("Roller Coaster", true, operator, 3) {
-            // 这里如果Ride类有抽象方法需要具体实现，可以在这里添加具体逻辑，当前代码示例中无额外抽象方法需要实现，所以留空
         };
 
-        // 创建一些访客对象并添加到历史记录中（模拟乘坐过该游乐设施）
+        // 创建一些访客对象并添加到历史记录中
         List<Visitor> visitors = new ArrayList<>();
         visitors.add(new Visitor("Alice", 25, "alice@example.com", "Member", "2024-12-10"));
         visitors.add(new Visitor("Bob", 28, "bob@example.com", "Non-Member", "2024-12-11"));
@@ -154,11 +152,24 @@ public class AssignmentTwo {
             rollerCoasterRide.addVisitorToHistory(visitor);
         }
 
-        // 将访客导出到文件中，这里假设文件名为"ride_history.txt"，可根据实际需求修改文件名
         rollerCoasterRide.exportRideHistory("ride_history.txt");
     }
 
-    public void partSeven(){
-    }
+    public void partSeven() {
+        // 创建员工对象，作为游乐设施的操作员
+        Employee operator = new Employee("John Doe", 30, "johndoe@example.com", "12345", "Operations");
+        // 创建一个新的Ride对象，这里假设游乐设施名称为"Roller Coaster"，一次循环最多容纳3名游客，初始状态为开放（true）
+        Ride<Visitor> rollerCoasterRide = new Ride<Visitor>("Roller Coaster", true, operator, 3) {
+            // 这里如果Ride类有抽象方法需要具体实现，可以在这里添加具体逻辑，当前代码示例中无额外抽象方法需要实现，所以留空
+        };
 
+        rollerCoasterRide.importRideHistory("ride_history.txt");
+
+        // 打印链表（乘坐历史集合）中的访客数量，以确认导入了正确数量的访客
+        rollerCoasterRide.numberOfVisitors();
+
+        // 打印链表中的所有访客，以确认每个访客的详细信息都已正确导入
+        rollerCoasterRide.printRideHistory();
+    }
 }
+

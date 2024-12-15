@@ -1,6 +1,8 @@
 package src;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Collections;
@@ -107,9 +109,9 @@ public abstract class Ride<V> implements RideInterface<V> {
     }
 
     @Override
-    public void addVisitorToHistory(V visitor) {
-        rideHistory.add(visitor);
-        System.out.println(visitor + " has been added to the ride history successfully.");
+     public void addVisitorToHistory(V visitor) {
+     rideHistory.add(visitor);
+    System.out.println(visitor + " has been added to the ride history successfully.");
     }
 
     @Override
@@ -154,6 +156,31 @@ public abstract class Ride<V> implements RideInterface<V> {
             System.out.println("The ride history has been successfully exported to the file: " + fileName);
         } catch (IOException e) {
             System.err.println("An error occurred while exporting the ride history: " + e.getMessage());
+        }
+    }
+public void importRideHistory(String fileName) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine())!= null) {
+                try {
+                    String[] parts = line.substring(line.indexOf('{') + 1, line.lastIndexOf('}')).split(", ");
+                    String name = parts[0].split("=")[1].replace("'", "");
+                    int age = Integer.parseInt(parts[1].split("=")[1]);
+                    String email = parts[2].split("=")[1].replace("'", "");
+                    String membershipStatus = parts[3].split("=")[1].replace("'", "");
+                    String visitDate = parts[4].split("=")[1].replace("'", "");
+                    @SuppressWarnings("unchecked")
+                    V visitor = (V) new Visitor(name, age, email, membershipStatus, visitDate);
+                    addVisitorToHistory(visitor);
+                } catch (Exception e) {
+                    System.err.println("An error occurred while parsing visitor data from file: " + e.getMessage());
+                    // 继续尝试读取下一行数据，即使这行解析出错也不影响后续行的处理
+                    continue;
+                }
+            }
+            System.out.println("The ride history has been successfully imported from the file: " + fileName);
+        } catch (IOException e) {
+            System.err.println("An error occurred while reading the file: " + e.getMessage());
         }
     }
 }
