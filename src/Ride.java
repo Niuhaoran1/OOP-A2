@@ -1,5 +1,6 @@
 package src;
-
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -104,6 +105,10 @@ public abstract class Ride<V> implements RideInterface<V> {
             V visitor = iterator.next();
             System.out.println(visitor);
         }
+    }
+ public void sortRideHistory(Comparator<V> comparator) {
+        Collections.sort((List<V>) rideHistory, comparator);
+        System.out.println("The ride history has been sorted successfully.");
     }
 }
 
