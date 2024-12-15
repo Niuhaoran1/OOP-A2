@@ -33,5 +33,14 @@ public class Visitor extends Person {
     public void setVisitDate(String visitDate) {
         this.visitDate = visitDate;
     }
-}
-    
+    @Override
+    public String toString() {
+        return "Visitor{" +
+                "name='" + getName() + '\'' +
+                ", age=" + getAge() +
+                ", email='" + getEmail() + '\'' +
+                ", membershipStatus='" + getMembershipStatus() + '\'' +
+                ", visitDate='" + getVisitDate() + '\'' +
+                '}';
+    } 
+    }

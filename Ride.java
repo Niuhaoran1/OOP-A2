@@ -58,7 +58,10 @@ public abstract class Ride<V> implements RideInterface<V> {
 
     @Override
     public void printQueue() {
-        System.out.println("Queue: " + visitorQueue);
+        System.out.println("Queue:");
+        for (V visitor : visitorQueue) {
+            System.out.println(visitor); // 使用toString()方法打印访客的详细信息
+        }
     }
 
     @Override
