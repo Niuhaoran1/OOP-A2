@@ -1,5 +1,8 @@
 package src;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -26,6 +29,7 @@ public abstract class Ride<V> implements RideInterface<V> {
         this.maxRider = maxRider;
         this.numOfCycles = 0;
     }
+
 
     public String getRideName() {
         return rideName;
@@ -138,5 +142,18 @@ public abstract class Ride<V> implements RideInterface<V> {
     public void sortRideHistory(Comparator<V> comparator) {
         Collections.sort((List<V>) rideHistory, comparator);
         System.out.println("The ride history has been sorted successfully.");
+    }
+    public void exportRideHistory(String fileName) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            Iterator<V> iterator = rideHistory.iterator();
+            while (iterator.hasNext()) {
+                V visitor = iterator.next();
+                writer.write(visitor.toString());
+                writer.newLine();
+            }
+            System.out.println("The ride history has been successfully exported to the file: " + fileName);
+        } catch (IOException e) {
+            System.err.println("An error occurred while exporting the ride history: " + e.getMessage());
+        }
     }
 }
