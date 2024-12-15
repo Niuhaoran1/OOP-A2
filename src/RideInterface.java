@@ -1,5 +1,6 @@
 package src;
 
+@SuppressWarnings("hiding")
 public interface RideInterface<Visitor> {
     void addVisitorToQueue(Visitor visitor);
     boolean removeVisitorFromQueue(Visitor visitor);

@@ -1,5 +1,4 @@
-import src.Person;
- 
+package src;
 public class Visitor extends Person {
     // 实例变量
     private String membershipStatus;
