@@ -1,4 +1,5 @@
 package src;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -13,13 +14,17 @@ public abstract class Ride<V> implements RideInterface<V> {
     private Employee rideOperator;
     private Queue<V> visitorQueue;
     private List<V> rideHistory; // 用于存储乘坐过该游乐设施的游客集合
+    private int maxRider; // 标识一个游乐设施在一次循环中能容纳多少游客，至少为1
+    private int numOfCycles; // 标识游乐设施运行的次数，默认值为0，每次运行增加1
 
-    public Ride(String rideName, boolean isOpen, Employee rideOperator) {
+    public Ride(String rideName, boolean isOpen, Employee rideOperator, int maxRider) {
         this.rideName = rideName;
         this.isOpen = isOpen;
         this.rideOperator = rideOperator;
         this.visitorQueue = new LinkedList<>();
         this.rideHistory = new LinkedList<>();
+        this.maxRider = maxRider;
+        this.numOfCycles = 0;
     }
 
     public String getRideName() {
@@ -46,6 +51,18 @@ public abstract class Ride<V> implements RideInterface<V> {
         this.rideOperator = operator;
     }
 
+    public int getMaxRider() {
+        return maxRider;
+    }
+
+    public void setMaxRider(int maxRider) {
+        this.maxRider = maxRider;
+    }
+
+    public int getNumOfCycles() {
+        return numOfCycles;
+    }
+
     // 实现RideInterface接口的方法
     @Override
     public void addVisitorToQueue(V visitor) {
@@ -67,11 +84,22 @@ public abstract class Ride<V> implements RideInterface<V> {
 
     @Override
     public void runOneCycle() {
-        if (!visitorQueue.isEmpty()) {
+        if (rideOperator == null) {
+            System.out.println("The ride cannot run because there is no operator assigned.");
+            return;
+        }
+        if (visitorQueue.isEmpty()) {
+            System.out.println("The ride cannot run because there are no visitors in the queue.");
+            return;
+        }
+        int numToRemove = Math.min(visitorQueue.size(), maxRider);
+        for (int i = 0; i < numToRemove; i++) {
             V currentVisitor = visitorQueue.poll();
-            addVisitorToHistory(currentVisitor); // 将乘坐过的游客添加到历史记录中
+            addVisitorToHistory(currentVisitor);
             System.out.println(currentVisitor + " is now riding " + rideName);
         }
+        numOfCycles++;
+        System.out.println("The ride has completed one cycle. The current number of cycles is: " + numOfCycles);
     }
 
     @Override
@@ -106,9 +134,9 @@ public abstract class Ride<V> implements RideInterface<V> {
             System.out.println(visitor);
         }
     }
- public void sortRideHistory(Comparator<V> comparator) {
+
+    public void sortRideHistory(Comparator<V> comparator) {
         Collections.sort((List<V>) rideHistory, comparator);
         System.out.println("The ride history has been sorted successfully.");
     }
 }
-
