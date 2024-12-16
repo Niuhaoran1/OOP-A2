@@ -1,5 +1,5 @@
 package src;
- 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +31,7 @@ public class AssignmentTwo {
         rollerCoasterRide.printQueue();
     }
 
-   public void partFourA() {
+    public void partFourA() {
         // 创建员工对象，作为游乐设施的操作员
         Employee operator = new Employee("John Doe", 30, "johndoe@example.com", "12345", "Operations");
         // 创建一个新的Ride对象，这里假设游乐设施名称为"Roller Coaster"，初始状态为开放（true）
@@ -61,7 +61,7 @@ public class AssignmentTwo {
         rollerCoasterRide.printRideHistory();
     }
 
-    
+
     public void partFourB() {
         // 创建员工对象，作为游乐设施的操作员
         Employee operator = new Employee("John Doe", 30, "johndoe@example.com", "12345", "Operations");
@@ -99,6 +99,7 @@ public class AssignmentTwo {
         Employee operator = new Employee("John Doe", 30, "johndoe@example.com", "12345", "Operations");
         // 创建一个新的Ride对象，这里假设游乐设施名称为"Roller Coaster"，一次循环最多容纳3名游客，初始状态为开放（true）
         Ride<Visitor> rollerCoasterRide = new Ride<Visitor>("Roller Coaster", true, operator, 3) {
+
         };
 
         // 创建一些访客对象并添加到队列中
@@ -171,5 +172,12 @@ public class AssignmentTwo {
         // 打印链表中的所有访客，以确认每个访客的详细信息都已正确导入
         rollerCoasterRide.printRideHistory();
     }
-}
 
+    public static void main(String[] args) {
+        AssignmentTwo assignmentTwo = new AssignmentTwo();
+        // 以下可以根据你想要测试的具体部分，调用对应的方法，这里以调用partThree方法为例
+        assignmentTwo.partThree();
+        // 如果想测试其他部分，比如partFourA，可以这样调用
+        // assignmentTwo.partFourA();
+    }
+}
